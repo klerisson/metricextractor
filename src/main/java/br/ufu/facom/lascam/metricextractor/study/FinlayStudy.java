@@ -4,12 +4,16 @@
 package br.ufu.facom.lascam.metricextractor.study;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import org.repodriller.RepositoryMining;
 import org.repodriller.Study;
 import org.repodriller.filter.range.Commits;
 import org.repodriller.scm.GitRepository;
 
+import br.ufu.facom.lascam.metricextractor.data.Config;
+import br.ufu.facom.lascam.metricextractor.data.DbQuery;
 import br.ufu.facom.lascam.metricextractor.visitor.RevisionVisitor;
 
 /**
@@ -20,12 +24,22 @@ public class FinlayStudy implements Study {
 
 	@Override
 	public void execute() {
-		new RepositoryMining()
-		.in(GitRepository.singleProject("/home/klerisson/Documents/PhD/research_artifacts/Streaming_builds/experiment/storm"))
-		.through(Commits.list(Arrays.asList("4e0ff2f6e238a59c13d9af6dc3db84ae5817365f")))
-		.process(new RevisionVisitor(), null)
-		.mine();
 
+		for (Entry<String, String> entry : Config.instance.projectToPath.entrySet()) {
+			
+			try {
+				LinkedHashMap<Integer, String> buildsToCommitHash = DbQuery.fetchCommitsByProject(entry.getKey());
+				
+				for (Entry<Integer, String> builds : buildsToCommitHash.entrySet()) {
+					
+					new RepositoryMining().in(GitRepository.singleProject(entry.getValue()))
+							.through(Commits.list(Arrays.asList(builds.getValue())))
+							.process(new RevisionVisitor()).mine();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

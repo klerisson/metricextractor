@@ -19,11 +19,6 @@ import com.github.mauricioaniche.ck.CKReport;
 public class RevisionVisitor implements CommitVisitor {
 
 	@Override
-	public String name() {
-		return "RevisionVisitor";
-	}
-
-	@Override
 	public void process(SCMRepository repo, Commit commit, PersistenceMechanism writter) {
 		try {
 			repo.getScm().checkout(commit.getHash());
@@ -31,13 +26,16 @@ public class RevisionVisitor implements CommitVisitor {
 			for(CKNumber ck : report.all()) {
 				System.out.println(ck);
 			}
-			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			repo.getScm().reset();
 		}
-
+	}
+	
+	@Override
+	public String name() {
+		return "RevisionVisitor";
 	}
 
 }
