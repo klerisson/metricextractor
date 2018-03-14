@@ -62,7 +62,7 @@ public class DbQuery {
 			pstmt.setDouble(2, fm.getAverageBlockDepth());
 			pstmt.setDouble(3, fm.getWMC());
 			pstmt.setDouble(4, fm.getMaintainability());
-			pstmt.setDouble(5, fm.getMcCabe());
+			pstmt.setDouble(5, fm.getAverageWMC());
 			pstmt.setInt(6, fm.getNOperands());
 			pstmt.setInt(7, fm.getNOperators());
 			pstmt.setInt(8, fm.getNUniqueOperands());
@@ -105,7 +105,7 @@ public class DbQuery {
 			pstmt.setDouble(44, fm.getAverageBlockDepth());
 			pstmt.setDouble(45, fm.getWMC());
 			pstmt.setDouble(46, fm.getMaintainability());
-			pstmt.setDouble(47, fm.getMcCabe());
+			pstmt.setDouble(47, fm.getAverageWMC());
 			pstmt.setInt(48, fm.getNOperands());
 			pstmt.setInt(49, fm.getNOperators());
 			pstmt.setInt(50, fm.getNUniqueOperands());

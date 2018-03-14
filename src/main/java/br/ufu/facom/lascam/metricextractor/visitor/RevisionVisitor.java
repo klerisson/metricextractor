@@ -64,7 +64,7 @@ public class RevisionVisitor implements CommitVisitor {
 		fm.setLcom3(fm.getLcom3() + ck.getLcom3());
 		fm.setLoc(fm.getLoc() + ck.getLoc());
 		fm.setMaintainability(fm.getMaintainability() + ck.getMaintainability());
-		fm.setMcCabe(fm.getMcCabe() + ck.getMcCabe());
+		fm.setAverageWMC(fm.getAverageWMC() + ck.getAverageWMC());
 		fm.setNComments(fm.getNComments() + ck.getNComments());
 		fm.setNDeliveredBugs(fm.getNDeliveredBugs() + ck.getNDeliveredBugs());
 		fm.setNImport(fm.getNImport() + ck.getNImport());
