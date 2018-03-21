@@ -21,9 +21,11 @@ import br.ufu.facom.lascam.metricextractor.data.DbQuery;
 public class RevisionVisitor implements CommitVisitor {
 
 	private Integer buildId;
+	private String projectName;
 
 	public RevisionVisitor(String projectName, Integer buildId) {
 		this.buildId = buildId;
+		this.projectName = projectName;
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class RevisionVisitor implements CommitVisitor {
 			for (CKNumber ck : report.all()) {
 				sum(ck, finalMetric);
 			}
-			DbQuery.insertOrUpdateMetric(buildId, finalMetric);
+			DbQuery.insertOrUpdateMetric(projectName, buildId, finalMetric);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
