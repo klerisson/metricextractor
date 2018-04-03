@@ -36,8 +36,9 @@ public class FinlayStudy implements Study {
 							.through(Commits.list(Arrays.asList(builds.getValue())))
 							.process(new RevisionVisitor(entry.getKey(), builds.getKey())).mine();
 					
-					System.out.println("Missing projects: " +  (--projectsCounter) + " builds: " + (--buildsCounter));
+					System.out.println("Missing projects: " +  projectsCounter + " builds: " + (--buildsCounter));
 				}
+				projectsCounter--;
 			} catch (Exception e) {
 				e.printStackTrace();
 				--projectsCounter;
